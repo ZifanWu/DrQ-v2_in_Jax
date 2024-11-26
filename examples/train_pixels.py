@@ -25,7 +25,6 @@ flags.DEFINE_integer('eval_interval', 5000, 'Eval interval.')
 # flags.DEFINE_integer('batch_size', 512, 'Mini batch size.')
 flags.DEFINE_boolean('reset', False, 'Whether to reset periodically')
 flags.DEFINE_boolean('redo', False, 'Whether to redo dormant neurons periodically.')
-flags.DEFINE_integer('reset_start_layer_idx', -4, 'Which layers to reset(redo).')
 flags.DEFINE_integer('reset_interval', 100_000, 'Reset time interval')
 flags.DEFINE_boolean('use_batched_random_crop', False, 'Whether to use DrQ-v1 img augmentation.')
 
@@ -40,7 +39,7 @@ flags.DEFINE_boolean('tqdm', False, 'Use tqdm progress bar.')
 flags.DEFINE_boolean('save_video', False, 'Save videos during evaluation.')
 flags.DEFINE_boolean('track', False, 'Track experiments with Weights and Biases.')
 flags.DEFINE_string('wandb_project_name', "dormant-neuron", "The wandb's project name.")
-flags.DEFINE_string('wandb_entity', 'zarzard', "the entity (team) of wandb's project")
+flags.DEFINE_string('wandb_entity', '', "the entity (team) of wandb's project")
 flags.DEFINE_integer('index', None, "slurm array index")
 config_flags.DEFINE_config_file(
     'config',
@@ -75,12 +74,9 @@ def merge_configs(flags_obj: Any, config_dict: ConfigDict) -> Dict[str, Any]:
     """
     # Convert FLAGS to dictionary with actual values
     flags_dict = {}
-    # 获取所有 FLAGS 的值
     for flag_name in dir(flags_obj):
-        # 跳过内部属性和方法
         if not flag_name.startswith('_'):
             try:
-                # 获取实际的值而不是 Flag 对象
                 flags_dict[flag_name] = getattr(flags_obj, flag_name)
             except Exception:
                 continue

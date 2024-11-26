@@ -34,7 +34,7 @@ flags.DEFINE_boolean('tqdm', False, 'Use tqdm progress bar.')
 flags.DEFINE_boolean('save_video', False, 'Save videos during evaluation.')
 flags.DEFINE_boolean('track', False, 'Track experiments with Weights and Biases.')
 flags.DEFINE_string('wandb_project_name', "dormant-neuron", "The wandb's project name.")
-flags.DEFINE_string('wandb_entity', 'zarzard', "the entity (team) of wandb's project")
+flags.DEFINE_string('wandb_entity', '', "the entity (team) of wandb's project")
 flags.DEFINE_integer('index', None, "slurm array index")
 config_flags.DEFINE_config_file(
     'config',
