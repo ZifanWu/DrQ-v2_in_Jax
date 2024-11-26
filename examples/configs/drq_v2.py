@@ -29,12 +29,12 @@ def get_config():
     config.discount = 0.99
 
     config.tau = 0.01 # NOTE DrQ: 0.005
-    config.target_update_period = 2 # DrQ: 1
+    config.target_update_period = 1 # DrQ: 1
 
     config.init_temperature = 0.1
     config.target_entropy = None
 
-    config.replay_buffer_size = 500000 # NOTE DrQ's 100k
+    config.replay_buffer_size = 1000000 # NOTE DrQ's 100k
 
     config.gray_scale = False
     config.image_size = 84

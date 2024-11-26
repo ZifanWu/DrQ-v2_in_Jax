@@ -1,11 +1,12 @@
+This repository implements [DrQ-v2](https://arxiv.org/abs/2107.09645) for pixel-based observation tasks on DMControl.
+
 # Installation
 See the original [Jaxrl repo](https://github.com/ikostrikov/jaxrl) for instructions.
 
 # Usage
 
-For continuous control from pixels using DrQ-v2:
-
 ```bash
+cd examples
 MUJOCO_GL=egl python train_pixels.py --env_name=quadruped-run --save_dir=./tmp/
 ```
 

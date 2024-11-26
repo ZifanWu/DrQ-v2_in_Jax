@@ -95,15 +95,14 @@ def merge_configs(flags_obj: Any, config_dict: ConfigDict) -> Dict[str, Any]:
 
 def main(_):
     settings = []
-    for i in [100000, 200000]:
-        settings.append(i)
+    # for i in [100000, 200000]:
+    #     settings.append(i)
     # if FLAGS.index is not None:
     #     setting_for_this_idx = settings[int(FLAGS.index)]
     #     FLAGS.reset = setting_for_this_idx
     kwargs = dict(FLAGS.config)
-    if FLAGS.index is not None:
-        setting_for_this_idx = settings[int(FLAGS.index)]
-        FLAGS.config['replay_buffer_size'] = setting_for_this_idx
+    if FLAGS.env_name == 'quadruped-run':
+        FLAGS.config['replay_buffer_size'] = 100000
 
     config = merge_configs(FLAGS, FLAGS.config)
     FLAGS.seed = np.random.randint(0, 100000)
