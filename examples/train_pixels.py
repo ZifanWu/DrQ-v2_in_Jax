@@ -28,6 +28,7 @@ flags.DEFINE_boolean('redo', False, 'Whether to redo dormant neurons periodicall
 flags.DEFINE_integer('reset_interval', 100_000, 'Reset time interval')
 flags.DEFINE_boolean('use_batched_random_crop', False, 'Whether to use DrQ-v1 img augmentation.')
 
+flags.DEFINE_integer('update_freq', 2, 'Update the agent every _ steps.')
 flags.DEFINE_integer('updates_per_step', 1, 'Gradient updates per step.')
 flags.DEFINE_integer('max_steps', int(1e7), 'Number of environment steps.')
 flags.DEFINE_integer('start_training', int(1e4),
@@ -216,9 +217,10 @@ def main(_):
         if i >= FLAGS.start_training:
             # batch = replay_buffer.sample(int(config['batch_size']))
             # update_info = agent.update(batch)
-            for _ in range(FLAGS.updates_per_step):
-                batch = replay_buffer.sample(int(config['batch_size']))
-                update_info = agent.update(batch)
+            if i % FLAGS.update_freq == 0:
+                for _ in range(FLAGS.updates_per_step):
+                    batch = replay_buffer.sample(int(config['batch_size']))
+                    update_info = agent.update(batch)
 
             if i % FLAGS.log_interval == 0:
                 for k, v in update_info.items():
